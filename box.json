@@ -2,15 +2,15 @@
     "name":"CBDataSource",
     "version":"0.0.1",
     "author":"",
-    "location":"http://www.purposefultechnologies.com",
+    "location":"https://github.com/djcard/cbdatasource.git",
     "directory":"",
     "createPackageDirectory":true,
     "packageDirectory":"",
     "homepage":"",
     "documentation":"",
     "repository":{
-        "type":"",
-        "URL":""
+        "type":"github",
+        "URL":"https://github.com/djcard/cbdatasource.git"
     },
     "bugs":"",
     "slug":"cbdatasource",
