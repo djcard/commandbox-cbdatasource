@@ -4,9 +4,10 @@
 component extends="commandbox.system.BaseCommand"{
     function run(){
         allsource = getApplicationSettings();
+        print.line(allsource);
         if(allsource.keyExists("Datasources")){
-          allsource.datasources.structmap(function(source){
-
+          allsource.datasources.map(function(source){
+            print.line(source);
           })  ;
         }
         else{
