@@ -1,4 +1,7 @@
-component extends="commandbox.system.BaseCommand" hint="To make a new datasource, make sure that the server is running and you have the name of the database and a valid username and password. If you want to add this line to a script, set the addToScript value to true and the ScriptName to either a new or existing script."{
+/**
+    * Used to make a new password for CommandBox, itself, to access datasources. To save the setting to either
+    */
+component extends="commandbox.system.BaseCommand"{
     property name="moduleSettings" inject="commandbox:moduleSettings:KIMModel";
     property name="recipeObj" inject="KimRecipe@KIMUtilities";
     property name="projectObj" inject="ProjectFunctions@KIMUtilities";
