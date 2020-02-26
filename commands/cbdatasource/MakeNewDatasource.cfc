@@ -2,9 +2,8 @@
     * Used to make a new password for CommandBox, itself, to access datasources. To save the setting to either
     */
 component extends="commandbox.system.BaseCommand"{
-    property name="moduleSettings" inject="commandbox:moduleSettings:KIMModel";
-    property name="recipeObj" inject="KimRecipe@KIMUtilities";
-    property name="projectObj" inject="ProjectFunctions@KIMUtilities";
+    property name ="moduleSettings" inject="commandbox:moduleSettings:KIMModel";
+    property name ="Common" inject="Common@cbdatasource";
 /**
 * @datasource.hint The name of the datasource you are creating
 * @dbname.hint The name of the database on the server
@@ -19,38 +18,21 @@ component extends="commandbox.system.BaseCommand"{
                  required string dbtype,
                  required string username,
                  required string password,
-                 string serveraddress="127.0.0.1",
+                 string serveraddress = "127.0.0.1",
                  numeric port = 1433,
-                 boolean addToScript = false,
-                 string ScriptName='',
-                 string projectName='',
                  boolean force = false
-                 ){
+                 )
+    {
 
-        if(sourceExists(dsourceName = dataSource) and force eq false){
+        if (sourceExists(dsourceName = dataSource) and force eq false) {
             print.redLine("That datasource Already exists. Use force=true to overwrite.");
         }
-        else{
+        else {
             makekey(arguments);
             print.line("DataSource Made");
         }
 
-        if(addToScript) {
-            scriptinfo=makeScriptName(scriptname,projectName);
-
-
-
-
-
-
-            // is the script in this folder
-
-            // is the script in the default project folder
-
-            item = recipeObj.writeToRecipe(ScriptName, "KIMUtilities makeNewDataSource datasource=#datasource# dbname=#dbname# dbtype=#dbtype# username=#username# password=#password# makescript=false serveraddress=#serveraddress# port=#port# projectName=#projectName#");
-            print.line("Success:#item.success#    Message:#item.msg#");
-            }
-        }
+    }
 
     function makeKey(struct args){
         base=makeDsourceStruct(args.dbtype,args.dbname,args.username,args.password,args.serveraddress,args.port);
@@ -88,7 +70,27 @@ component extends="commandbox.system.BaseCommand"{
         string serverAddress='127.0.0.1',
         numeric port=1433){
 
-        retme = {
+        var baseObject = Common.coreData().structFilter(function(item){
+            return item=dbtype;
+        });
+
+        print.line(baseObject);
+
+
+
+/*
+        if(structkeyexists(retme, dbtype)) {
+            return retme[dbtype];
+        }
+        else {
+            return false;
+        }
+        */
+    }
+}
+
+/*
+retme = {
             mssql:{
                 class: 'com.microsoft.jdbc.sqlserver.SQLServerDriver',
                 connectionString: 'jdbc:sqlserver://#serveraddress#:#port#;DATABASENAME=#dbname#;sendStringParametersAsUnicode=true;SelectMethod=direct',
@@ -114,47 +116,4 @@ component extends="commandbox.system.BaseCommand"{
                     , connectionLimit:100 // default:-1
                 }
         };
-
-        if(structkeyexists(retme, dbtype)) {
-            return retme[dbtype];
-        }
-        else {
-            return false;
-        }
-    }
-
-    function makeScriptName(required string scriptname,projectname=''){
-        retme={name:scriptname,path:'',success:false};
-        if(listlen(scriptname,'\') gt 1) {
-            retme.path = listdeleteat(scriptname, listlen(scriptname, '\'),'\');
-            retme.name=listlast(scriptname,'\');
-        }
-
-
-<!---
-        if(not directoryExists(scriptpath)){
-
-        }
-        else{
-
-        }
-
-
-
-        if(projectName eq ''){
-            scriptpath='';
-            if(listlen(scriptname) gt 1){
-
-            }
-            scriptpath=recipeObj.makerecipePath;
-
-
-        }
-        else{
-
-        }--->
-        retme.path=recipeObj.makeRecipePath(retme.path);
-        retme.name=recipeObj.standardizeRecipeName(retme.name);
-        return retme;
-    }
-}
+*/

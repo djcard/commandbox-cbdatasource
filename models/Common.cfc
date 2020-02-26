@@ -11,16 +11,16 @@ component {
                 "class": 'com.microsoft.jdbc.sqlserver.SQLServerDriver',
                 "connectionString": 'jdbc:sqlserver://#serveraddress#:#port#;DATABASENAME=#dbname#;sendStringParametersAsUnicode=true;SelectMethod=direct',
                 "type":"system",
-                "username":username,
-                "password":pwd
+                "username":"",
+                "password":""
             },
             "mysql8":{
                 "class": 'com.mysql.cj.jdbc.Driver',
                 "bundleName": 'com.mysql.cj',
                 "bundleVersion": '8.0.15',
                 "connectionString": 'jdbc:mysql://#serveraddress#:#port#/#dbname#?useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=true&allowMultiQueries=true',
-                "username": username,
-                "password": pwd,
+                "username": "",
+                "password": "",
                 "connectionLimit":100 // default:-1
             },
             "mysql":{
@@ -28,8 +28,8 @@ component {
                 "bundleName": 'com.mysql.cj',
                 "bundleVersion": '8.0.15',
                 "connectionString": 'jdbc:mysql://#serveraddress#:#port#/#dbname#?useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=true&allowMultiQueries=true',
-                "username": username,
-                "password": pwd,
+                "username": "",
+                "password": "",
     // optional settings
                 "connectionLimit":100 // default:-1
             },
