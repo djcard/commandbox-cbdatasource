@@ -81,7 +81,7 @@ component {
         var baseObject = Common
             .coreData(dbtype, dbname, username, pwd, serverAddress, port, getcwd())
             .filter(function(item) {
-                return item = dbtype;
+                return item == dbtype;
             });
 
         print.line(baseObject);
