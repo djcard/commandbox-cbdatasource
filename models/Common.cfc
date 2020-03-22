@@ -13,7 +13,8 @@ component {
                 "bundlename":"mssqljdbc4",
                 "bundleVersion":"4.0.2206.100",
                 "username":"#username#",
-                "password":"#pwd#"
+                "password":"#pwd#",
+                "type":"MSSQL"
             },
             "mysql8":{
                 "class": 'com.mysql.cj.jdbc.Driver',
