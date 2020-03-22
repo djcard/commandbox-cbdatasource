@@ -55,7 +55,7 @@ component {
         if (structKeyExists(getApplicationSettings(), 'datasources')) {
             dsources = getApplicationSettings().datasources;
         }
-        dsources[args.datasource] = base;
+        dsources[args.datasource] = base[args.dbtype];
         try {
             print.line("60");
             application action="update" datasources="#dsources#";
