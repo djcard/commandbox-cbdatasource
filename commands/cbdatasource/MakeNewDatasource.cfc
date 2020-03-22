@@ -3,7 +3,7 @@
  */
 component {
 
-    property name="moduleSettings" inject="commandbox:moduleSettings:KIMModel";
+    //property name="moduleSettings" inject="commandbox:moduleSettings:cbdatasource";
     property name="Common" inject="Common@cbdatasource";
     /**
      * @datasource.hint The name of the datasource you are creating
