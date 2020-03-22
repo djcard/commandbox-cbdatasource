@@ -9,7 +9,7 @@ component {
      * @datasource The name of the datasource you are creating
      * @dbname The name of the database on the server
      * @dbtype The type of DB (Press Tab for options)
-     * @dbtype.options MSSQL
+     * @dbtype.options MSSQL,JTDS,MYSQL,H2
      * @username The username used to access the database
      * @password The password used to access the database
      * @serveraddress The IP or FQDN of the server
