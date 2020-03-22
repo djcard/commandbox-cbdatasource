@@ -4,20 +4,20 @@
 component {
 
     //property name="moduleSettings" inject="commandbox:moduleSettings:cbdatasource";
-    property name="Common" inject="Common@cbdatasource";
+    property name="common" inject="Common@cbdatasource";
     /**
-     * @datasource.hint The name of the datasource you are creating
-     * @dbname.hint The name of the database on the server
-     * @dbtype.hint The type of DB (Press Tab for options)
+     * @datasource The name of the datasource you are creating
+     * @dbname The name of the database on the server
+     * @dbtype The type of DB (Press Tab for options)
      * @dbtype.options MSSQL
-     * @username.hint The username used to access the database
-     * @password.hint The password used to access the database
-     * @serveraddress.hint The IP or FQDN of the server
-     * @port.hint The port at the serveraddress. Defaults to 1433 for MSSQL
-     * @folder.hint For file based dbs like h2. The folder where the file (dbname) exists or should be created.
+     * @username The username used to access the database
+     * @password The password used to access the database
+     * @serveraddress The IP or FQDN of the server
+     * @port The port at the serveraddress. Defaults to 1433 for MSSQL
+     * @folder For file based dbs like h2. The folder where the file (dbname) exists or should be created.
      * @force By default, if the datasource already exists, it will not overwrite it. Force will make it do so.
      **/
-    function run(
+    void function run(
         required string datasource,
         required string dbname,
         required string dbtype,
@@ -28,7 +28,7 @@ component {
         string folder = getcwd(),
         boolean force = false
     ) {
-        if (sourceExists(dsourceName = dataSource) and force eq false) {
+        if (sourceExists(dsourceName = dataSource) and !force) {
             print.redLine('That datasource Already exists. Use force=true to overwrite.');
         } else {
             makekey(arguments);
@@ -36,7 +36,12 @@ component {
         }
     }
 
-    function makeKey(struct args) {
+    /*
+    * Creates and Adds the datasource to Command Box
+    * @args A Structure that is the arguments passed in to run() (above)
+    */
+
+    private boolean function makeKey(required struct args) {
         var base = makeDsourceStruct(
             args.dbtype,
             args.dbname,
@@ -53,14 +58,20 @@ component {
         dsources[args.datasource] = base;
         try {
             application action="update" datasources="#variables.dsources#";
+            return true;
         } catch (any err) {
             print.line(err.message);
+            return false;
         }
     }
 
+    /*
+    * Checks to see if the datasource already exists
+    * @dsourceName The name of the datasource to check
+    */
 
-    private function sourceExists(required string dsourceName) {
-        dsources = getApplicationSettings();
+    private boolean function sourceExists(required string dsourceName) {
+        var dsources = getApplicationSettings();
         if (not structKeyExists(dsources, 'datasources')) {
             return false;
         }
@@ -70,61 +81,35 @@ component {
         return true;
     }
 
-    private function makeDsourceStruct(
+
+    /*
+    * Creates the Datasource Structure
+    * @dbtype The type of database submitted
+    * @dbname The new Database Name
+    * @username The username to log in
+    * @pwd The db password
+    * @serverAddress Defaults to 127.0.0.1
+    * @port DEfaults to 1433 for MSSQL
+    * @folder Defaults to ''. Used for file based dbs
+    */
+
+    private struct function makeDsourceStruct(
         required string dbtype,
         required string dbname,
         required string username,
         required string pwd,
         string serverAddress = '127.0.0.1',
-        numeric port = 1433
+        numeric port = 1433,
+        string folder=''
     ) {
-        var baseObject = Common
-            .coreData(dbtype, dbname, username, pwd, serverAddress, port, getcwd())
+        var dsource = common
+            .coreData(dbtype, dbname, username, pwd, serverAddress, port, folder)
             .filter(function(item) {
                 return item == dbtype;
             });
 
-        print.line(baseObject);
-
-
-
-        /*
-        if(structkeyexists(retme, dbtype)) {
-            return retme[dbtype];
-        }
-        else {
-            return false;
-        }
-        */
+        print.line(dsource);
+        return dsource;
     }
 
 }
-
-/*
-retme = {
-            mssql:{
-                class: 'com.microsoft.jdbc.sqlserver.SQLServerDriver',
-                connectionString: 'jdbc:sqlserver://#serveraddress#:#port#;DATABASENAME=#dbname#;sendStringParametersAsUnicode=true;SelectMethod=direct',
-                type:"system",
-                username:username,
-                password:pwd
-            },
-            mysql:{
-                class: 'com.mysql.cj.jdbc.Driver'
-                , bundleName: 'com.mysql.cj'
-                , bundleVersion: '8.0.15'
-                , connectionString: 'jdbc:mysql://#serveraddress#:#port#/#dbname#?useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=true&allowMultiQueries=true'
-                , username: username
-                , password: pwd
-                // optional settings
-                , connectionLimit:100 // default:-1
-            },
-            h2:{
-                    class: 'org.h2.Driver'
-                    , bundleName: 'org.h2'
-                    , bundleVersion: '1.3.172'
-                    , connectionString: 'jdbc:h2:#getCWD()#\#dbname#;MODE=MSSQL'
-                    , connectionLimit:100 // default:-1
-                }
-        };
-*/
