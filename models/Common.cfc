@@ -5,7 +5,7 @@ component {
     /**
 *   Centralized Data for sources
 */
-    struct function coreData(dbtype, dbname, username, pwd, serverAddress, port){
+    struct function coreData(dbtype, dbname, username, pwd, serverAddress, port, folder){
         return {
             "mssql":{
                 "class": 'com.microsoft.jdbc.sqlserver.SQLServerDriver',
@@ -37,7 +37,7 @@ component {
                 "class": 'org.h2.Driver',
                 "bundleName": 'org.h2',
                 "bundleVersion": '1.3.172',
-                "connectionString": 'jdbc:h2:#getCWD()#\#dbname#;MODE=MSSQL',
+                "connectionString": 'jdbc:h2:#folder#\#dbname#;MODE=MSSQL',
                 "connectionLimit":100 // default:-1
             }
         };

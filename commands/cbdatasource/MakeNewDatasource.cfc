@@ -12,7 +12,10 @@ component {
      * @dbtype.options MSSQL
      * @username.hint The username used to access the database
      * @password.hint The password used to access the database
-     * @scriptname.hint The name or path and name of the desired script. Use this\scriptname for this folder
+     * @serveraddress.hint The IP or FQDN of the server
+     * @port.hint The port at the serveraddress. Defaults to 1433 for MSSQL
+     * @folder.hint For file based dbs like h2. The folder where the file (dbname) exists or should be created.
+     * @force By default, if the datasource already exists, it will not overwrite it. Force will make it do so. 
      **/
     function run(
         required string datasource,
@@ -22,6 +25,7 @@ component {
         required string password,
         string serveraddress = '127.0.0.1',
         numeric port = 1433,
+        string folder = getcwd(),
         boolean force = false
     ) {
         if (sourceExists(dsourceName = dataSource) and force eq false) {
@@ -75,7 +79,7 @@ component {
         numeric port = 1433
     ) {
         var baseObject = Common
-            .coreData(dbtype, dbname, username, pwd, serverAddress, port)
+            .coreData(dbtype, dbname, username, pwd, serverAddress, port, getcwd())
             .structFilter(function(item) {
                 return item = dbtype;
             });
