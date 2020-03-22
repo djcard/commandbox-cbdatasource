@@ -11,8 +11,8 @@ component {
                 "class": 'com.microsoft.jdbc.sqlserver.SQLServerDriver',
                 "connectionString": 'jdbc:sqlserver://#serveraddress#:#port#;DATABASENAME=#dbname#;sendStringParametersAsUnicode=true;SelectMethod=direct',
                 "type":"system",
-                "username":"",
-                "password":""
+                "username":"#username#",
+                "password":"#pwd#"
             },
             "mysql8":{
                 "class": 'com.mysql.cj.jdbc.Driver',
