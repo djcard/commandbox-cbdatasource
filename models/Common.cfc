@@ -5,7 +5,7 @@ component {
     /**
 *   Centralized Data for sources
 */
-    struct function coreData(){
+    struct function coreData(dbtype, dbname, username, pwd, serverAddress, port){
         return {
             "mssql":{
                 "class": 'com.microsoft.jdbc.sqlserver.SQLServerDriver',

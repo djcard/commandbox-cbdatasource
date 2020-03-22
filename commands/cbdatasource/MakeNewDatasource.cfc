@@ -75,7 +75,7 @@ component {
         numeric port = 1433
     ) {
         var baseObject = Common
-            .coreData()
+            .coreData(dbtype, dbname, username, pwd, serverAddress, port)
             .structFilter(function(item) {
                 return item = dbtype;
             });
