@@ -1,62 +1,66 @@
 /**
-    * Used to make a new password for CommandBox, itself, to access datasources. To save the setting to either
-    */
-component extends="commandbox.system.BaseCommand"{
-    property name ="moduleSettings" inject="commandbox:moduleSettings:KIMModel";
-    property name ="Common" inject="Common@cbdatasource";
-/**
-* @datasource.hint The name of the datasource you are creating
-* @dbname.hint The name of the database on the server
-* @dbtype.hint The type of DB (Press Tab for options)
-* @dbtype.options MSSQL
-* @username.hint The username used to access the database
-* @password.hint The password used to access the database
-* @scriptname.hint The name or path and name of the desired script. Use this\scriptname for this folder
-**/
-    function run(required string datasource,
-                 required string dbname,
-                 required string dbtype,
-                 required string username,
-                 required string password,
-                 string serveraddress = "127.0.0.1",
-                 numeric port = 1433,
-                 boolean force = false
-                 )
-    {
+ * Used to make a new password for CommandBox, itself, to access datasources. To save the setting to either
+ */
+component {
 
+    property name="moduleSettings" inject="commandbox:moduleSettings:KIMModel";
+    property name="Common" inject="Common@cbdatasource";
+    /**
+     * @datasource.hint The name of the datasource you are creating
+     * @dbname.hint The name of the database on the server
+     * @dbtype.hint The type of DB (Press Tab for options)
+     * @dbtype.options MSSQL
+     * @username.hint The username used to access the database
+     * @password.hint The password used to access the database
+     * @scriptname.hint The name or path and name of the desired script. Use this\scriptname for this folder
+     **/
+    function run(
+        required string datasource,
+        required string dbname,
+        required string dbtype,
+        required string username,
+        required string password,
+        string serveraddress = '127.0.0.1',
+        numeric port = 1433,
+        boolean force = false
+    ) {
         if (sourceExists(dsourceName = dataSource) and force eq false) {
-            print.redLine("That datasource Already exists. Use force=true to overwrite.");
-        }
-        else {
+            print.redLine('That datasource Already exists. Use force=true to overwrite.');
+        } else {
             makekey(arguments);
-            print.line("DataSource Made");
+            print.line('DataSource Made');
         }
-
     }
 
-    function makeKey(struct args){
-        base=makeDsourceStruct(args.dbtype,args.dbname,args.username,args.password,args.serveraddress,args.port);
-        dsources={};
+    function makeKey(struct args) {
+        base = makeDsourceStruct(
+            args.dbtype,
+            args.dbname,
+            args.username,
+            args.password,
+            args.serveraddress,
+            args.port
+        );
+        dsources = {};
 
-        if(structKeyExists( getApplicationSettings(), 'datasources')){
+        if (structKeyExists(getApplicationSettings(), 'datasources')) {
             dsources = getApplicationSettings().datasources;
         }
-       variables.dsources[args.datasource]=base;
+        variables.dsources[args.datasource] = base;
         try {
-            application action = "update" datasources = "#variables.dsources#";
-        }
-        catch(any err){
+            application action="update" datasources="#variables.dsources#";
+        } catch (any err) {
             print.line(err.message);
         }
     }
 
 
-    private function sourceExists(required string dsourceName){
+    private function sourceExists(required string dsourceName) {
         dsources = getApplicationSettings();
-        if(not structKeyExists( dsources, 'datasources')){
+        if (not structKeyExists(dsources, 'datasources')) {
             return false;
         }
-        if(not structKeyExists( dsources.datasources, dsourceName)){
+        if (not structKeyExists(dsources.datasources, dsourceName)) {
             return false;
         }
         return true;
@@ -67,18 +71,20 @@ component extends="commandbox.system.BaseCommand"{
         required string dbname,
         required string username,
         required string pwd,
-        string serverAddress='127.0.0.1',
-        numeric port=1433){
-
-        var baseObject = Common.coreData().structFilter(function(item){
-            return item=dbtype;
-        });
+        string serverAddress = '127.0.0.1',
+        numeric port = 1433
+    ) {
+        var baseObject = Common
+            .coreData()
+            .structFilter(function(item) {
+                return item = dbtype;
+            });
 
         print.line(baseObject);
 
 
 
-/*
+        /*
         if(structkeyexists(retme, dbtype)) {
             return retme[dbtype];
         }
@@ -87,6 +93,7 @@ component extends="commandbox.system.BaseCommand"{
         }
         */
     }
+
 }
 
 /*

@@ -3,9 +3,9 @@
  */
 component {
 
-    this['moduleMapping'] = 'cbdatasource';
-    this['modelNamespace'] = 'cbdatasource';
-    this['cfmapping'] = 'cbdatasource';
+    this['moduleMapping'] = 'cbdatasource';//cflint ignore:line
+    this['modelNamespace'] = 'cbdatasource';//cflint ignore:line
+    this['cfmapping'] = 'cbdatasource';//cflint ignore:line
 
     /**
      * The minimum functions needed to run ModuleConfig
