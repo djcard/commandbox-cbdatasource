@@ -37,7 +37,7 @@ component {
     }
 
     function makeKey(struct args) {
-        base = makeDsourceStruct(
+        var base = makeDsourceStruct(
             args.dbtype,
             args.dbname,
             args.username,
@@ -45,12 +45,12 @@ component {
             args.serveraddress,
             args.port
         );
-        dsources = {};
+        var dsources = {};
 
         if (structKeyExists(getApplicationSettings(), 'datasources')) {
             dsources = getApplicationSettings().datasources;
         }
-        variables.dsources[args.datasource] = base;
+        dsources[args.datasource] = base;
         try {
             application action="update" datasources="#variables.dsources#";
         } catch (any err) {
