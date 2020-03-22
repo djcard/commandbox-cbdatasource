@@ -15,7 +15,7 @@ component {
      * @serveraddress.hint The IP or FQDN of the server
      * @port.hint The port at the serveraddress. Defaults to 1433 for MSSQL
      * @folder.hint For file based dbs like h2. The folder where the file (dbname) exists or should be created.
-     * @force By default, if the datasource already exists, it will not overwrite it. Force will make it do so. 
+     * @force By default, if the datasource already exists, it will not overwrite it. Force will make it do so.
      **/
     function run(
         required string datasource,
@@ -80,7 +80,7 @@ component {
     ) {
         var baseObject = Common
             .coreData(dbtype, dbname, username, pwd, serverAddress, port, getcwd())
-            .structFilter(function(item) {
+            .filter(function(item) {
                 return item = dbtype;
             });
 
