@@ -57,7 +57,7 @@ component {
         }
         dsources[args.datasource] = base;
         try {
-            application action="update" datasources="#variables.dsources#";
+            application action="update" datasources="#dsources#";
             return true;
         } catch (any err) {
             print.line(err.message);
