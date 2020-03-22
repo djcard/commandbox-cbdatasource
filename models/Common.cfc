@@ -7,6 +7,16 @@ component {
 */
     struct function coreData(dbtype, dbname, username, pwd, serverAddress, port, folder){
         return {
+            "jtds":{
+                    "class": 'net.sourceforge.jtds.jdbc.Driver',
+                    "bundleName": "jtds",
+                    "bundleVersion": "1.3.1",
+                    "connectionString": "jdbc:jtds:sqlserver://#serverAddress#:#port#/#dbname#",
+                    "username": "#username#",
+                    "password": "#pwd#",
+                    "connectionLimit":100, // default:-1
+                    "validate":false // default: false
+            },
             "mssql":{
                 "class": 'com.microsoft.sqlserver.jdbc.SQLServerDriver',
                 "connectionString": 'jdbc:sqlserver://#serveraddress#:#port#;DATABASENAME=#dbname#;sendStringParametersAsUnicode=true;SelectMethod=direct',
@@ -16,7 +26,7 @@ component {
                 "password":"#pwd#",
                 "type":"MSSQL"
             },
-            "mysql8":{
+            "mysql":{
                 "class": 'com.mysql.cj.jdbc.Driver',
                 "bundleName": 'com.mysql.cj',
                 "bundleVersion": '8.0.15',
@@ -25,7 +35,7 @@ component {
                 "password": "#pwd#",
                 "connectionLimit":100 // default:-1
             },
-            "mysql":{
+            "mysql5":{
                 "class": 'com.mysql.jdbc.Driver',
                 "bundleName": 'com.mysql.cj',
                 "bundleVersion": '8.0.15',
