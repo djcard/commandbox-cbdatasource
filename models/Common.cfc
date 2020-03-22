@@ -8,9 +8,10 @@ component {
     struct function coreData(dbtype, dbname, username, pwd, serverAddress, port, folder){
         return {
             "mssql":{
-                "class": 'com.microsoft.jdbc.sqlserver.SQLServerDriver',
+                "class": 'com.microsoft.sqlserver.jdbc.SQLServerDriver',
                 "connectionString": 'jdbc:sqlserver://#serveraddress#:#port#;DATABASENAME=#dbname#;sendStringParametersAsUnicode=true;SelectMethod=direct',
-                "type":"system",
+                "bundlename":"mssqljdbc4",
+                "bundleVersion":"4.0.2206.100",
                 "username":"#username#",
                 "password":"#pwd#"
             },
@@ -19,8 +20,8 @@ component {
                 "bundleName": 'com.mysql.cj',
                 "bundleVersion": '8.0.15',
                 "connectionString": 'jdbc:mysql://#serveraddress#:#port#/#dbname#?useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=true&allowMultiQueries=true',
-                "username": "",
-                "password": "",
+                "username": "#username#",
+                "password": "#pwd#",
                 "connectionLimit":100 // default:-1
             },
             "mysql":{
