@@ -23,10 +23,10 @@ Command: cbdatasource MakeNewDatasource
     **folder**: Used with H2 to indicate where the db should be made.   
        
 **Drivers and Bundles**  
-JTDS: net.sourceforge.jtds.jdbc.Driver and Bundle 1.3.1
-MSSQL: com.microsoft.sqlserver.jdbc.SQLServerDriver and Bundle 4.0.2206.100
-MySQL: com.mysql.cj.jdbc.Driver (Compatabile with MySQL 8)
-H2: org.h2.Driver and defaults to MSSQL mode. 
+JTDS: net.sourceforge.jtds.jdbc.Driver and Bundle 1.3.1  
+MSSQL: com.microsoft.sqlserver.jdbc.SQLServerDriver and Bundle 4.0.2206.100  
+MySQL: com.mysql.cj.jdbc.Driver (Compatabile with MySQL 8)  
+H2: org.h2.Driver and defaults to MSSQL mode.   
 
 Notes: If a datasource of the same name already exists, it will not be overwritten without the --force flag.  
 Datasources do not persist after CB has been closed.
