@@ -107,6 +107,7 @@ component {
     */
 
     private struct function makeDsourceStruct(
+        required string dbtype,
         required string dbname,
         required string username,
         required string pwd,
