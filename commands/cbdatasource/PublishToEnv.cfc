@@ -17,7 +17,7 @@ component {
             print.line("This is a #type# Database");
             command("cbenvvar set DB_PASSWORD #currentDatasource.password#").run();
             command("cbenvvar set DB_USER #currentDatasource.username#").run();
-            command("cbenvvar set DB_CONNECTIONSTRING #currentDatasource.connectionString#").run();
+            command("cbenvvar set").params(name="DB_CONNECTIONSTRING",value="#currentDatasource.connectionString#").run();
             command("cbenvvar set DB_CLASS #currentDatasource.class#").run();
         print.line(currentDatasource);
 
