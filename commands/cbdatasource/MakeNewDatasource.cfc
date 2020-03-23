@@ -17,8 +17,9 @@ component {
      * @username The username used to access the database
      * @password The password used to access the database
      * @serveraddress The IP or FQDN of the server
-     * @port The port at the serveraddress. Defaults to 1433 for MSSQL
+     * @port The port at the serveraddress. Defaults to 0 but tries to determine port from dbtype
      * @folder For file based dbs like h2. The folder where the file (dbname) exists or should be created.
+     * @addlstring Additional parameters for the connection string (see database documentation)
      * @force By default, if the datasource already exists, it will not overwrite it. Force will make it do so.
      **/
     void function run(
@@ -30,6 +31,7 @@ component {
         string serveraddress = '127.0.0.1',
         numeric port = 0,
         string folder = getcwd(),
+        string addlstring = '',
         boolean force = false
     ) {
 
@@ -51,12 +53,13 @@ component {
 
     private boolean function makeKey(required struct args) {
         var base = makeDsourceStruct(
-            args.dbtype,
             args.dbname,
             args.username,
             args.password,
             args.serveraddress,
-            args.port
+            args.port,
+            args.folder,
+            args.addlstring
         );
         var dsources = {};
 
@@ -113,7 +116,7 @@ component {
         string folder=''
     ) {
         var dsource = common
-            .coreData(dbtype, dbname, username, pwd, serverAddress, port, folder)
+            .coreData(dbname, username, pwd, serverAddress, port, folder)
             .filter(function(item) {
                 return item == dbtype;
             });
