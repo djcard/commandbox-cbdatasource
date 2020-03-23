@@ -12,10 +12,9 @@ component extends="commandbox.system.BaseCommand" {
         if (allsources.keyExists('Datasources')) {
             print.line('There are #allsources.datasources.len()# datasources in the system');
             allsources.datasources.map(function(key,item) {
-                if(verbose){
+
                     print.line(item);
-                }
-                else{
+                if(verbose){
                     print.line(key);
                 }
 
