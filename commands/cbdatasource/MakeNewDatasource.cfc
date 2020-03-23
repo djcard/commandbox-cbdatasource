@@ -47,7 +47,7 @@ component {
         }
 
         if(saveToEnvFile){
-            command("cbdatasource PublishToEnv #datasource#").run();
+            command("cbdatasource PublishToEnv #datasource# #dbtype#").run();
         }
     }
 
