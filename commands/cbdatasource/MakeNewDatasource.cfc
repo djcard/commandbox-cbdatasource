@@ -69,9 +69,7 @@ component {
         }
         dsources[args.datasource] = base[args.dbtype];
         try {
-            print.line("60");
             application action="update" datasources="#dsources#";
-            print.line("62");
             return true;
         } catch (any err) {
             print.line(err.message);
