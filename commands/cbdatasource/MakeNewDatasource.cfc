@@ -107,16 +107,16 @@ component {
     */
 
     private struct function makeDsourceStruct(
-        required string dbtype,
         required string dbname,
         required string username,
         required string pwd,
         string serverAddress = '127.0.0.1',
         numeric port = 1433,
-        string folder=''
+        string folder='',
+        string addlstring=''
     ) {
         var dsource = common
-            .coreData(dbname, username, pwd, serverAddress, port, folder)
+            .coreData(dbname, username, pwd, serverAddress, port, folder, addlstring)
             .filter(function(item) {
                 return item == dbtype;
             });
