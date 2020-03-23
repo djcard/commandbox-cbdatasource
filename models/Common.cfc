@@ -61,4 +61,19 @@ component {
         };
     }
 
+/*
+* Checks to see if the datasource already exists
+* @dsourceName The name of the datasource to check
+*/
+
+    boolean function sourceExists(required string dsourceName) {
+        var dsources = getApplicationSettings();
+        if (not structKeyExists(dsources, 'datasources')) {
+            return false;
+        }
+        if (not structKeyExists(dsources.datasources, dsourceName)) {
+            return false;
+        }
+        return true;
+    }
 }

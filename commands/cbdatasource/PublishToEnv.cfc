@@ -1,4 +1,5 @@
 component {
+    property name="common" inject="Common@cbdatasource";
     classMapping={
         "org.gjt.mm.mysql.Driver":"MYSQL",
         "com.microsoft.sqlserver.jdbc.SQLServerDriver":"MSSQL",
@@ -8,6 +9,11 @@ component {
     };
 
     function run(name,type){
+            if(!common.sourceExists(name)){
+                print.line("The datasource #name# does not exist");
+                return;
+            }
+
             var dsources = {};
             if (structKeyExists(getApplicationSettings(), 'datasources')) {
                 dsources = getApplicationSettings().datasources;
@@ -20,7 +26,7 @@ component {
             command("cbenvvar set DB_USER #currentDatasource.username#").run();
             command("cbenvvar set").params(name="DB_CONNECTIONSTRING",value="#currentDatasource.connectionString#").run();
             command("cbenvvar set DB_CLASS #currentDatasource.class#").run();
-        print.line(currentDatasource);
+
 
         }
 
