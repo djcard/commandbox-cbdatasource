@@ -4,7 +4,7 @@ component {
             if (structKeyExists(getApplicationSettings(), 'datasources')) {
                 dsources = getApplicationSettings().datasources;
             }
-            var currentDatasource = dsources.keyExists(name) ? dsources[key] : {};
+            var currentDatasource = dsources.keyExists(name) ? dsources[name] : {};
         print.line(currentDatasource);
 
         }
