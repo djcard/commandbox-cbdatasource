@@ -2,7 +2,11 @@
  * Used to make a new password for CommandBox, itself, to access datasources. To save the setting to either
  */
 component {
-
+    dbports = {
+        "JTDS":1433,
+        "MSSQL": 1433,
+        "MySQL":3389
+    };
     //property name="moduleSettings" inject="commandbox:moduleSettings:cbdatasource";
     property name="common" inject="Common@cbdatasource";
     /**
@@ -24,10 +28,14 @@ component {
         required string username,
         required string password,
         string serveraddress = '127.0.0.1',
-        numeric port = 1433,
+        numeric port = 0,
         string folder = getcwd(),
         boolean force = false
     ) {
+
+        port = port neq 0 ? port : dbports.keyExists(dbtype) ? dbports[dbtype] : 0;
+
+
         if (sourceExists(dsourceName = dataSource) and !force) {
             print.redLine('That datasource Already exists. Use force=true to overwrite.');
         } else {
