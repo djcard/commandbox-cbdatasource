@@ -32,7 +32,8 @@ component {
         numeric port = 0,
         string folder = getcwd(),
         string addlstring = '',
-        boolean force = false
+        boolean force = false,
+        boolean saveToEnvFile=false
     ) {
 
         port = port neq 0 ? port : dbports.keyExists(dbtype) ? dbports[dbtype] : 0;
@@ -43,6 +44,10 @@ component {
         } else {
             makekey(arguments);
             print.line('DataSource Made');
+        }
+
+        if(saveToEnvFile){
+            command("cbdatasource PublishToEnv #datasource#").run();
         }
     }
 
@@ -124,5 +129,7 @@ component {
         print.line(dsource);
         return dsource;
     }
+
+
 
 }
