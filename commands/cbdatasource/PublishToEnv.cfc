@@ -15,6 +15,7 @@ component {
             var currentDatasource = dsources.keyExists(name) ? dsources[name] : {};
             type = isNull(type) ? determineType(currentDatasource.class) : type;
             print.line("This is a #type# Database");
+            command("cbenvvar set DB_DATABASE #parseConnectionString(currentDatasource.connectionString)#").run();
             command("cbenvvar set DB_PASSWORD #currentDatasource.password#").run();
             command("cbenvvar set DB_USER #currentDatasource.username#").run();
             command("cbenvvar set").params(name="DB_CONNECTIONSTRING",value="#currentDatasource.connectionString#").run();
@@ -24,10 +25,25 @@ component {
         }
 
     function parseConnectionString(required string connString,type){
-
+        switch(type){
+            case "MSSQL":
+                return parseMSSQLString(connString);
+            break;
+        }
     }
 
     function determineType(class){
         return classMapping.keyExists(class) ? classMapping[class] : "";
+    }
+
+    function parseMSSQLString(connString){
+        var mystruct={};
+        connString.listtoarray(";").map(function(item,index){
+            if(findNoCase("=",item) gt 0){
+                mystruct[listfirst(item,'=')] = listlast(item,'=');
+            }
+        });
+
+        return mystruct.KeyExists("DATABASENAME") ? mystruct.databasename : "";
     }
 }
