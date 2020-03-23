@@ -53,6 +53,7 @@ component {
 
     private boolean function makeKey(required struct args) {
         var base = makeDsourceStruct(
+            args.dbtype,
             args.dbname,
             args.username,
             args.password,
