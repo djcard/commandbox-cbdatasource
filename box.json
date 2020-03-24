@@ -19,9 +19,7 @@
     "instructions":"",
     "changelog":"",
     "type":"commandbox-modules",
-    "keywords":[
-        
-    ],
+    "keywords":[],
     "private":false,
     "engines":[
         {
@@ -38,30 +36,23 @@
             "URL":""
         }
     ],
-    "contributors":[
-        
-    ],
+    "contributors":[],
     "dependencies":{
-        
+        "testbox":"^3.2.0+356",
+        "FusionReactor":"^8.3.2"
     },
-    "devDependencies":{
-        
-    },
+    "devDependencies":{},
     "installPaths":{
-        
+        "testbox":"testbox/"
     },
-    "scripts":{
-        
-    },
+    "scripts":{},
     "testbox":{
         "runner":[
             {
                 "default":""
             }
         ],
-        "labels":[
-            
-        ],
+        "labels":[],
         "reporter":"",
         "reporterResults":"",
         "bundles":[
@@ -71,13 +62,9 @@
             "mapping":"",
             "recurse":true
         },
-        "watchers":[
-            
-        ],
+        "watchers":[],
         "notify":{
-            "emails":[
-                
-            ],
+            "emails":[],
             "growl":"",
             "URL":""
         }

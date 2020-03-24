@@ -1,1 +1,6 @@
 .idea/
+testbox/
+tests/
+fusionreactor.jar
+libfrjvmti_x64.dylib
+libfrjvmti_x64.so

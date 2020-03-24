@@ -17,7 +17,7 @@ component {
         required string dbname,
         required string username,
         required string pwd,
-        string serverAddress = '',
+        string serverAddress = '127.0.0.1',
         numeric port = 0,
         string folder = '',
         string addlstring=''
@@ -40,7 +40,7 @@ component {
                 'bundleVersion': '4.0.2206.100',
                 'username': '#username#',
                 'password': '#pwd#',
-                'type': 'MSSQL'
+                'connectionLimit': 100 // default:-1
             },
             'mysql': {
                 'class': 'com.mysql.cj.jdbc.Driver',
@@ -67,7 +67,7 @@ component {
 */
 
     boolean function sourceExists(required string dsourceName) {
-        var dsources = getApplicationSettings();
+        var dsources = appSettings();
         if (not structKeyExists(dsources, 'datasources')) {
             return false;
         }
@@ -75,5 +75,9 @@ component {
             return false;
         }
         return true;
+    }
+
+    struct function appSettings(){
+        return getApplicationSettings();
     }
 }

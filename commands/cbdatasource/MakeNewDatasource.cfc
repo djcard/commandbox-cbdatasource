@@ -1,7 +1,7 @@
 /**
  * Used to make a new password for CommandBox, itself, to access datasources. To save the setting to either
  */
-component {
+component accessors="true"{
     dbports = {
         "JTDS":1433,
         "MSSQL": 1433,
@@ -40,10 +40,11 @@ component {
 
 
         if (common.sourceExists(dsourceName = dataSource) and !force) {
-            print.redLine('That datasource Already exists. Use force=true to overwrite.');
+            printme('That datasource Already exists. Use force=true to overwrite.',"redLine");
+            //if(!isnull(print)){print.redLine('That datasource Already exists. Use force=true to overwrite.');}
         } else {
             makekey(arguments);
-            print.line('DataSource Made');
+            printme('DataSource Made to printme');
         }
 
         if(saveToEnvFile){
@@ -82,6 +83,9 @@ component {
         }
     }
 
+    private void function printme(text,funcName="line"){
+        print[funcName](text);
+    }
 
 
 
