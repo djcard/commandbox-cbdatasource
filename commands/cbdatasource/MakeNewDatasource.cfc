@@ -38,10 +38,8 @@ component accessors="true"{
 
         port = port neq 0 ? port : dbports.keyExists(dbtype) ? dbports[dbtype] : 0;
 
-
         if (common.sourceExists(dsourceName = dataSource) and !force) {
             printme('That datasource Already exists. Use force=true to overwrite.',"redLine");
-            //if(!isnull(print)){print.redLine('That datasource Already exists. Use force=true to overwrite.');}
         } else {
             makekey(arguments);
             printme('DataSource Made to printme');
@@ -58,6 +56,11 @@ component accessors="true"{
     */
 
     private boolean function makeKey(required struct args) {
+        if(args.datasource eq '') {
+            printme("Datasource can not be blank");
+            return false;
+        }
+
         var base = makeDsourceStruct(
             args.dbtype,
             args.dbname,
@@ -67,20 +70,26 @@ component accessors="true"{
             args.port,
             args.folder,
             args.addlstring
-        );
-        var dsources = {};
+                );
 
-        if (structKeyExists(getApplicationSettings(), 'datasources')) {
-            dsources = getApplicationSettings().datasources;
-        }
-        dsources[args.datasource] = base[args.dbtype];
-        try {
-            application action="update" datasources="#dsources#";
-            return true;
-        } catch (any err) {
-            print.line(err.message);
+        if(!base.keyExists(args.dbtype)) {
+            printme("I don't know how to handle #args.dbtype#");
             return false;
         }
+
+
+
+        var allsettings = common.appSettings();
+        var dsources = allsettings.keyExists("datasources") ? allsettings.datasources : {};
+        dsources[args.datasource] = base.keyExists(args.dbtype) ? base[args.dbtype] : {};
+        //try {
+            application action="update" datasources="#dsources#";
+            return true;
+        //} catch (any err) {
+
+        //    printme(err.message);
+        //    return false;
+        //}
     }
 
     private void function printme(text,funcName="line"){

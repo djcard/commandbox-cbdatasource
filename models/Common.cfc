@@ -31,7 +31,8 @@ component {
                 'username': '#username#',
                 'password': '#pwd#',
                 'connectionLimit': 100, // default:-1
-                'validate': false // default: false
+                'validate': false, // default: false
+                'type':"system"
             },
             'mssql': {
                 'class': 'com.microsoft.sqlserver.jdbc.SQLServerDriver',
