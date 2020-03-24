@@ -83,7 +83,7 @@ component extends="testbox.system.BaseSpec"{
 			});
 
 			it( "If the datatype is not blank and the dbtype is supported, call makeDsourceStruct 1x, call appsettings 1x and return true", function(){
-				testobj.$(method="makeDsourceStruct",returns={jtds:{}});
+				testobj.$(method="makeDsourceStruct",returns={jtds:{type:"MSSQL",host:"",database:""}});
 				mockObj.$(method="appSettings",returns={});
 				testobj.setCommon(mockObj);
 				testme=testObj.makekeypublic({
@@ -98,7 +98,7 @@ component extends="testbox.system.BaseSpec"{
 					datasource:"otherthing"
 				});
 				expect(testObj.$count("makeDsourceStruct")).tobe(1);
-				//expect( mockObj.$count("appSettings") ).toBe(1);
+				expect( mockObj.$count("appSettings") ).toBe(1);
 				expect( testme ).toBeTrue();
 
 			});

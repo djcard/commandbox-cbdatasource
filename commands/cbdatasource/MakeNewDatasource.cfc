@@ -105,7 +105,7 @@ component accessors="true"{
     * @username The username to log in
     * @pwd The db password
     * @serverAddress Defaults to 127.0.0.1
-    * @port DEfaults to 1433 for MSSQL
+    * @port Defaults to 1433 for MSSQL
     * @folder Defaults to ''. Used for file based dbs
     */
 
@@ -125,7 +125,7 @@ component accessors="true"{
                 return item == dbtype;
             });
 
-        print.line(dsource);
+        printme(dsource);
         return dsource;
     }
 

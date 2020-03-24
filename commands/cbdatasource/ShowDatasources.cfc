@@ -1,26 +1,29 @@
 /**
  * The Show All Data Sources command simply outputs all the datasources which are configured in this context of your operating system.
  */
-component extends="commandbox.system.BaseCommand" {
-
+component accessors="true"{
+    property name="common" inject="Common@cbdatasource";
     /**
      * The entry point to the command
      */
     void function run(boolean verbose = false ) {
-        var allsources = getApplicationSettings();
-        // print.line(allsource);
+        var allsources = common.appSettings();
         if (allsources.keyExists('Datasources')) {
-            print.line('There are #allsources.datasources.len()# datasources in the system');
+            printme('There are #allsources.datasources.len()# datasources in the system');
             allsources.datasources.map(function(key,item) {
-                print.line(key);
+                printme(key);
                 if(verbose){
-                    print.line(item);
+                    printme(item);
                 }
 
             });
         } else {
-            print.line('There are no datasources defined');
+            printme('There are no datasources defined');
         }
+    }
+
+    private void function printme(text,funcName="line"){
+        print[funcName](text);
     }
 
 }
