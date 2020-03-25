@@ -48,25 +48,22 @@ component accessors="true" {
 
         var dbname = parseConnectionString(currentDatasource.connectionString, type);
         common.printme('This is a #type# Database');
-        common.command('cbenvvar set DB_DATABASE #dbname#').run();
-        common
-            .command(
+        command('cbenvvar set DB_DATABASE #dbname#').run();
+        command(
                 'cbenvvar set DB_PASSWORD #currentDatasource.keyexists('password') ? currentDatasource.password : ''#'
             )
             .run();
-        common
-            .command(
+        command(
                 'cbenvvar set DB_USER #currentDatasource.keyExists('username') ? currentDatasource.username : ''#'
             )
             .run();
-        common
-            .command('cbenvvar set')
+        command('cbenvvar set')
             .params(
                 name = 'DB_CONNECTIONSTRING',
                 value = '#currentDatasource.keyExists('connectionString') ? currentDatasource.connectionString : ''#'
             )
             .run();
-        common.command('cbenvvar set DB_CLASS #currentDatasource.keyExists('class') ? currentDatasource.class : ''#').run();
+        command('cbenvvar set DB_CLASS #currentDatasource.keyExists('class') ? currentDatasource.class : ''#').run();
     }
 
 
