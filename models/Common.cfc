@@ -1,7 +1,7 @@
 /**
  * Common functions and data for cbdatasource
  */
-component {
+component accessors="true"{
     property name="base" inject="BaseCommand";
     property name="print" inject="PrintBuffer";
     /**
@@ -87,7 +87,7 @@ component {
 * @text What text to display
 * @styleName The formatting for the output in the format of redLine
 */
-    void function printme(string text = '', string styleName = 'line') {
+    void function printme(any text = '', string styleName = 'line') {
             print[styleName](text).toConsole();
     }
 }

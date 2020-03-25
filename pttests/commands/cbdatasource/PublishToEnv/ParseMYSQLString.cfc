@@ -1,10 +1,11 @@
 /**
-* My BDD Test
-*/
-component extends="testbox.system.BaseSpec"{
-	
-/*********************************** LIFE CYCLE Methods ***********************************/
+ * My BDD Test
+ */
+component extends="testbox.system.BaseSpec" {
 
+    /*********************************** LIFE CYCLE Methods ***********************************/
+
+    /*
 	// executes before all suites+specs in the run() method
 	function beforeAll(){
 	}
@@ -12,30 +13,33 @@ component extends="testbox.system.BaseSpec"{
 	// executes after all suites+specs in the run() method
 	function afterAll(){
 	}
+*/
 
-/*********************************** BDD SUITES ***********************************/
+    /*********************************** BDD SUITES ***********************************/
 
-	function run(){
-	
-		describe( "ParseMySQLString should", function(){
-			beforeEach(function(){
-				testobj=createMock("commands.cbdatasource.publishtoenv");
-			});
-			it( "If it is clean, return the dbname", function(){
-				testobj.$(method="isCleanDBName",returns=true);
-				var testme=testobj.parseMySQLString('jdbc:mysql://localhost:3306/testinstall9?useUnicode=true&characterEncoding=UTF-8&serverTimezone=America/New_York&useLegacyDatetimeCode=true');
+    void function run() {
+        describe('ParseMySQLString should', function() {
+            beforeEach(function() {
+                testobj = createMock('commands.cbdatasource.publishtoenv');
+            });
+            it('If it is clean, return the dbname', function() {
+                testobj.$(method = 'isCleanDBName', returns = true);
+                var testme = testobj.parseMySQLString(
+                    'jdbc:mysql://localhost:3306/testinstall9?useUnicode=true&characterEncoding=UTF-8&serverTimezone=America/New_York&useLegacyDatetimeCode=true'
+                );
 
-                expect( testme ).toBe('testinstall9');
-			});
+                expect(testme).toBe('testinstall9');
+            });
 
-			it( "If it is not clean, return ''", function(){
-				testobj.$(method="isCleanDBName",returns=false);
-				var testme=testobj.parseMySQLString('jdbc:mysql://localhost:3306/testinstall9?useUnicode=true&characterEncoding=UTF-8&serverTimezone=America/New_York&useLegacyDatetimeCode=true');
+            it('If it is not clean, return ''''', function() {
+                testobj.$(method = 'isCleanDBName', returns = false);
+                var testme = testobj.parseMySQLString(
+                    'jdbc:mysql://localhost:3306/testinstall9?useUnicode=true&characterEncoding=UTF-8&serverTimezone=America/New_York&useLegacyDatetimeCode=true'
+                );
 
-					expect( testme ).toBe('');
-			});
-		});
-		
-	}
-	
+                expect(testme).toBe('');
+            });
+        });
+    }
+
 }

@@ -117,7 +117,7 @@ component accessors="true" {
      * Parses a submitted MYSQL connectionString to get the database name
      * @connString The connection string to parse
      */
-    boolean function parseMYSQLString(required string connString) {
+    string function parseMYSQLString(required string connString) {
         var dbname = connstring.listfirst('?').listlast('/');
         return isCleanDBName(dbname) ? dbname : '';
     }
@@ -126,7 +126,7 @@ component accessors="true" {
      * Parses a submitted JTDS connectionString to get the database name
      * @connString The connection string to parse
      */
-    boolean function parseJTDSString(required string connString) {
+    string function parseJTDSString(required string connString) {
         var dbname = connString.listLast('/');
         return isCleanDBName(dbname) ? dbname : '';
     }

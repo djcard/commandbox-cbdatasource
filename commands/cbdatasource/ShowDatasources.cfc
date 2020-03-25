@@ -19,7 +19,7 @@ component accessors="true" {
                 }
             });
         } else {
-            printme('There are no datasources defined');
+            common.printme('There are no datasources defined');
         }
     }
 
