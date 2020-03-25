@@ -7,7 +7,7 @@ component accessors="true"{
         "MSSQL": 1433,
         "MySQL":3389
     };
-    //property name="moduleSettings" inject="commandbox:moduleSettings:cbdatasource";
+
     property name="common" inject="Common@cbdatasource";
     /**
      * @datasource The name of the datasource you are creating
@@ -21,6 +21,7 @@ component accessors="true"{
      * @folder For file based dbs like h2. The folder where the file (dbname) exists or should be created.
      * @addlstring Additional parameters for the connection string (see database documentation)
      * @force By default, if the datasource already exists, it will not overwrite it. Force will make it do so.
+     * @saveToEnvFile Will save the individual items in the .env file in THIS folder using the keys: DB_DATABASE, DB_PASSWORD, DB_USER, DB_CONNECTIONSTRING, DB_CLASS
      **/
     void function run(
         required string datasource,
@@ -39,10 +40,10 @@ component accessors="true"{
         port = port neq 0 ? port : dbports.keyExists(dbtype) ? dbports[dbtype] : 0;
 
         if (common.sourceExists(dsourceName = dataSource) and !force) {
-            printme('That datasource Already exists. Use force=true to overwrite.',"redLine");
+            common.printme('That datasource Already exists. Use force=true to overwrite.',"redLine");
         } else {
             makekey(arguments);
-            printme('DataSource Made to printme');
+            common.printme('DataSource Made to printme');
         }
 
         if(saveToEnvFile){
@@ -57,11 +58,11 @@ component accessors="true"{
 
     private boolean function makeKey(required struct args) {
         if(args.datasource eq '') {
-            printme("Datasource can not be blank");
+            common.printme("Datasource can not be blank");
             return false;
         }
 
-        var base = makeDsourceStruct(
+        var base = makeDsourceInfo(
             args.dbtype,
             args.dbname,
             args.username,
@@ -73,7 +74,7 @@ component accessors="true"{
                 );
 
         if(!base.keyExists(args.dbtype)) {
-            printme("I don't know how to handle #args.dbtype#");
+            common.printme("I don't know how to handle #args.dbtype#");
             return false;
         }
 
@@ -92,11 +93,6 @@ component accessors="true"{
         //}
     }
 
-    private void function printme(text,funcName="line"){
-        print[funcName](text);
-    }
-
-
 
     /*
     * Creates the Datasource Structure
@@ -107,9 +103,10 @@ component accessors="true"{
     * @serverAddress Defaults to 127.0.0.1
     * @port Defaults to 1433 for MSSQL
     * @folder Defaults to ''. Used for file based dbs
+    * @addlstring Additional items to add to the connection string
     */
 
-    private struct function makeDsourceStruct(
+    private struct function makeDsourceInfo(
         required string dbtype,
         required string dbname,
         required string username,
@@ -125,7 +122,7 @@ component accessors="true"{
                 return item == dbtype;
             });
 
-        printme(dsource);
+        common.printme(dsource);
         return dsource;
     }
 

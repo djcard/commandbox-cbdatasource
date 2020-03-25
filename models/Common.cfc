@@ -2,7 +2,8 @@
  * Common functions and data for cbdatasource
  */
 component {
-
+    property name="base" inject="BaseCommand";
+    property name="print" inject="PrintBuffer";
     /**
      *   Centralized Data for sources
      * @dbname The name of the database on the server
@@ -79,5 +80,14 @@ component {
 
     struct function appSettings(){
         return getApplicationSettings();
+    }
+
+/*
+*   Seperated out commandline printing for testing purposes
+* @text What text to display
+* @styleName The formatting for the output in the format of redLine
+*/
+    void function printme(string text = '', string styleName = 'line') {
+            print[styleName](text).toConsole();
     }
 }
