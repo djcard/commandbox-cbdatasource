@@ -14,7 +14,7 @@ Command: cbdatasource MakeNewDatasource
 
 **Parameters**
 
-    **dbtype**: The type of database / driver (JTDS,MSSQL, MYSQL, H2)  
+    **dbtype**: The type of database / driver (JTDS,MSSQL, MYSQL)  
     **datasource**: name of the datasource  
     **serveraddress**: The address of the database (IP or FQDN, defaults to 127.0.0.1)  
     **port**: Port to access the DB (If not submitted, tries to determine from DBtype 3389 for MySQL)  
