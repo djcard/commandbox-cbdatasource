@@ -38,8 +38,7 @@
     ],
     "contributors":[],
     "dependencies":{
-        "testbox":"^3.2.0+356",
-        "FusionReactor":"^8.3.2"
+        "commandbox-envfile":"^0.0.1"
     },
     "devDependencies":{},
     "installPaths":{
