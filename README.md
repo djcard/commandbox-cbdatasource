@@ -10,6 +10,12 @@ Installation: `box install commandbox-cbdatasource`
 
 **Usage**
 
+Command: cbdatasource ShowAllDatasources 
+output: There are 2 datasources in the system  
+--datasource1  
+--datasource2  
+
+
 Command: cbdatasource MakeNewDatasource
 
 **Parameters**
