@@ -2,17 +2,17 @@
     "name":"Commandbox-Datasource",
     "version":"0.0.1",
     "author":"",
-    "location":"https://github.com/djcard/cbdatasource.git",
+    "location":"forgeboxStorage",
     "directory":"",
     "createPackageDirectory":true,
     "packageDirectory":"",
-    "homepage":"",
-    "documentation":"",
+    "homepage":"https://github.com/djcard/cbdatasource",
+    "documentation":"https://github.com/djcard/cbdatasource",
     "repository":{
         "type":"github",
         "URL":"https://github.com/djcard/cbdatasource.git"
     },
-    "bugs":"",
+    "bugs":"https://github.com/djcard/cbdatasource/issues",
     "slug":"commandbox-cbdatasource",
     "shortDescription":"A tool to create and list datasources for a CommandBox Installation",
     "description":"",
@@ -32,8 +32,8 @@
     "projectURL":"",
     "license":[
         {
-            "type":"",
-            "URL":""
+            "type":"MIT",
+            "URL":"https://github.com/djcard/commandbox-cbdatasource/blob/master/LICENSE"
         }
     ],
     "contributors":[],
