@@ -64,6 +64,9 @@ component accessors="true" {
             )
             .run();
         command('envfile set DB_CLASS #currentDatasource.keyExists('class') ? currentDatasource.class : ''#').run();
+        if(type == 'MYSQL'){
+                command('envfile set DB_SCHEMA #dbname#').run();
+        }
     }
 
 
