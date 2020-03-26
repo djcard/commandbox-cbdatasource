@@ -10,7 +10,7 @@ component accessors="true" {
      * @datasource The name of the datasource you are creating
      * @dbname The name of the database on the server
      * @dbtype The type of DB (Press Tab for options)
-     * @dbtype.options MSSQL,JTDS,MYSQL,H2
+     * @dbtype.options MSSQL,JTDS,MYSQL
      * @username The username used to access the database
      * @password The password used to access the database
      * @serveraddress The IP or FQDN of the server
