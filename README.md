@@ -6,7 +6,7 @@ Currently supports JTDS, MSSQL, MYSQL and H2
 
 Tested on CommandBox 5.0.1+00137
 
-Installation: `box install commandbox-datasource`
+Installation: `box install commandbox-cbdatasource`
 
 **Usage**
 
