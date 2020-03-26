@@ -17,7 +17,7 @@ Command: cbdatasource MakeNewDatasource
     **dbtype**: The type of database / driver (JTDS,MSSQL, MYSQL)  
     **datasource**: name of the datasource  
     **serveraddress**: The address of the database (IP or FQDN, defaults to 127.0.0.1)  
-    **port**: Port to access the DB (If not submitted, tries to determine from DBtype 3389 for MySQL)  
+    **port**: Port to access the DB (If not submitted, tries to determine from DBtype 3306 for MySQL, 1433 for MSSQL)  
     **username**: Login Username  
     **password**: Login password. Does not store password anywhere. Simply passes on to the CommandBox engine.   
     **folder**: Used with H2 to indicate where the db should be made.   
