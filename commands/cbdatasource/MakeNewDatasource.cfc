@@ -3,7 +3,7 @@
  */
 component accessors="true" {
 
-    dbports = {'JTDS': 1433, 'MSSQL': 1433, 'MySQL': 3389};
+    dbports = {'JTDS': 1433, 'MSSQL': 1433, 'MySQL': 3306};
 
     property name="common" inject="Common@cbdatasource";
     /**
