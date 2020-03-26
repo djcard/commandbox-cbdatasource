@@ -6,7 +6,7 @@ Currently supports JTDS, MSSQL, MYSQL and H2
 
 Tested on CommandBox 5.0.1+00137
 
-Installation: `box install cbdatasource`
+Installation: `box install commandbox-cbdatasource`
 
 **Usage**
 
@@ -26,7 +26,6 @@ Command: cbdatasource MakeNewDatasource
 JTDS: net.sourceforge.jtds.jdbc.Driver and Bundle 1.3.1  
 MSSQL: com.microsoft.sqlserver.jdbc.SQLServerDriver and Bundle 4.0.2206.100  
 MySQL: com.mysql.cj.jdbc.Driver (Compatabile with MySQL 8)  
-H2: org.h2.Driver and defaults to MSSQL mode.   
 
 Notes: If a datasource of the same name already exists, it will not be overwritten without the --force flag.  
 Datasources do not persist after CB has been closed.
