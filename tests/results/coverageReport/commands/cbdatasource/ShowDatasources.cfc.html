@@ -1,0 +1,88 @@
+
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<meta charset="utf-8">
+			<title>commands/cbdatasource/ShowDatasources.cfc</title>
+
+			<link rel="stylesheet" href="../../assets/css/syntaxhighlighter.css">
+			<link rel="stylesheet" href="../../assets/css/main.css">
+			<script src="../../assets/js/jquery-3.3.1.min.js"></script>
+			<script src="../../assets/js/popper.min.js"></script>
+			<script src="../../assets/js/bootstrap.min.js"></script>
+			<script src="../../assets/js/stupidtable.min.js"></script>
+			<script src="../../assets/js/syntaxhighlighter.js"></script>
+			<script src="../../assets/js/fontawesome.js"></script>
+			
+			<script>
+				$( document ).ready( function(){
+					var lineNumbersBGColorsJSON = {"22":"success","17":"success","20":"success","18":"success","4":"success","12":"success","16":"success","15":"success","6":"success","13":"success","26":"success","24":"success","14":"success","11":"success"};
+					$.each( lineNumbersBGColorsJSON, function( key, value ) {
+						$( `td.gutter > div.line.number${key}` ).addClass( `text-light bg-${value}` );
+					});
+				});
+			</script>
+
+		</head>
+		<body>
+			<div class="container-fluid my-3">
+				<table class="table-borderless mx-auto">
+					<thead>
+						<tr>
+							<th class="h2 text-right pr-3">
+								commands/cbdatasource/ShowDatasources.cfc
+							</th>
+							<th style="width: 300px">
+								<div class="progress position-relative" style="line-height: 2.5rem;font-size: 1.5rem; height:40px;">
+									<div class="progress-bar bg-success" role="progressbar" style="width: 100.0%" aria-valuenow="100.0" aria-valuemin="0" aria-valuemax="100"></div>
+									<div class="progress-bar bg-secondary" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+									<span class="justify-content-center text-light d-flex position-absolute w-100">100.0% coverage</span>
+								</div>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<a href="javascript:history.back()"><button type="button" class="btn btn-secondary btn-sm my-1"><i class="fas fa-angle-double-left"></i> Back</button></a>
+							</td>
+							<td>
+								&nbsp;
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<hr width="100%">
+
+<script type="text/syntaxhighlighter" class="brush: javascript"><![CDATA[
+/**
+ * The Show All Data Sources command simply outputs all the datasources which are configured in this context of your operating system.
+ */
+component accessors="true" {
+
+    property name="common" inject="Common@cbdatasource";
+    /**
+     * The entry point to the command
+     * @verbose Defaults to false which displays the name of the datasource alone. A True value displays the actual datasource itself.
+     */
+    void function run(boolean verbose = false) {
+        var allsources = common.appSettings();
+        if (allsources.keyExists('Datasources')) {
+            common.printme('There are #allsources.datasources.len()# datasources in the system');
+            allsources.datasources.map(function(key, item) {
+                common.printme(key);
+                if (verbose) {
+                    common.printme(item);
+                }
+            });
+        } else {
+            common.printme('There are no datasources defined');
+        }
+    }
+
+}
+
+]]></script>
+		</div>
+	</body>
+</html>

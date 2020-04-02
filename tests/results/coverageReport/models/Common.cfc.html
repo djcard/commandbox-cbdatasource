@@ -1,0 +1,155 @@
+
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<meta charset="utf-8">
+			<title>models/Common.cfc</title>
+
+			<link rel="stylesheet" href="../assets/css/syntaxhighlighter.css">
+			<link rel="stylesheet" href="../assets/css/main.css">
+			<script src="../assets/js/jquery-3.3.1.min.js"></script>
+			<script src="../assets/js/popper.min.js"></script>
+			<script src="../assets/js/bootstrap.min.js"></script>
+			<script src="../assets/js/stupidtable.min.js"></script>
+			<script src="../assets/js/syntaxhighlighter.js"></script>
+			<script src="../assets/js/fontawesome.js"></script>
+			
+			<script>
+				$( document ).ready( function(){
+					var lineNumbersBGColorsJSON = {"92":"success","51":"success","50":"success","33":"success","37":"success","52":"success","47":"success","63":"success","82":"success","58":"success","43":"success","45":"success","29":"success","62":"success","48":"success","46":"success","55":"success","44":"success","32":"success","27":"success","39":"success","57":"success","53":"success","93":"success","91":"danger","76":"success","30":"success","59":"success","40":"success","41":"success","42":"success","60":"success","26":"success","78":"success","34":"success","61":"success","75":"success","81":"success","79":"success","17":"success","4":"success","28":"success","71":"success","31":"success","70":"success","6":"success","36":"success","83":"success","73":"success","38":"success","35":"success","90":"success","49":"success","5":"success","54":"success","72":"success","56":"success"};
+					$.each( lineNumbersBGColorsJSON, function( key, value ) {
+						$( `td.gutter > div.line.number${key}` ).addClass( `text-light bg-${value}` );
+					});
+				});
+			</script>
+
+		</head>
+		<body>
+			<div class="container-fluid my-3">
+				<table class="table-borderless mx-auto">
+					<thead>
+						<tr>
+							<th class="h2 text-right pr-3">
+								models/Common.cfc
+							</th>
+							<th style="width: 300px">
+								<div class="progress position-relative" style="line-height: 2.5rem;font-size: 1.5rem; height:40px;">
+									<div class="progress-bar bg-success" role="progressbar" style="width: 98.2%" aria-valuenow="98.2" aria-valuemin="0" aria-valuemax="100"></div>
+									<div class="progress-bar bg-secondary" role="progressbar" style="width: 1.8%" aria-valuenow="1.8" aria-valuemin="0" aria-valuemax="100"></div>
+									<span class="justify-content-center text-light d-flex position-absolute w-100">98.2% coverage</span>
+								</div>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<a href="javascript:history.back()"><button type="button" class="btn btn-secondary btn-sm my-1"><i class="fas fa-angle-double-left"></i> Back</button></a>
+							</td>
+							<td>
+								&nbsp;
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<hr width="100%">
+
+<script type="text/syntaxhighlighter" class="brush: javascript"><![CDATA[
+/**
+ * Common functions and data for cbdatasource
+ */
+component accessors="true"{
+    property name="base" inject="BaseCommand";
+    property name="print" inject="PrintBuffer";
+    /**
+     *   Centralized Data for sources
+     * @dbname The name of the database on the server
+     * @username The username used to access the database
+     * @pwd The password used to access the database
+     * @serveraddress The IP or FQDN of the server
+     * @port The port at the serveraddress. Defaults to 1433 for MSSQL
+     * @folder For file based dbs like h2. The folder where the file (dbname) exists or should be created.
+     * @addlstring For extra paramters for the connection string
+     */
+    struct function coreData(
+        required string dbname,
+        required string username,
+        required string pwd,
+        string serverAddress = '127.0.0.1',
+        numeric port = 0,
+        string folder = '',
+        string addlstring=''
+    ) {
+        return {
+            'jtds': {
+                'class': 'net.sourceforge.jtds.jdbc.Driver',
+                'bundleName': 'jtds',
+                'bundleVersion': '1.3.1',
+                'connectionString': 'jdbc:jtds:sqlserver://#serverAddress#:#port#/#dbname#',
+                'username': '#username#',
+                'password': '#pwd#',
+                'connectionLimit': 100, // default:-1
+                'validate': false // default: false
+            },
+            'mssql': {
+                'class': 'com.microsoft.sqlserver.jdbc.SQLServerDriver',
+                'connectionString': 'jdbc:sqlserver://#serveraddress#:#port#;DATABASENAME=#dbname#;sendStringParametersAsUnicode=true;SelectMethod=direct',
+                'bundlename': 'mssqljdbc4',
+                'bundleVersion': '4.0.2206.100',
+                'username': '#username#',
+                'password': '#pwd#',
+                'connectionLimit': 100 // default:-1
+            },
+            'mysql': {
+                'class': 'com.mysql.cj.jdbc.Driver',
+                'bundleName': 'com.mysql.cj',
+                'bundleVersion': '8.0.15',
+                'connectionString': 'jdbc:mysql://#serveraddress#:#port#/#dbname#?useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=true&#addlstring#',
+                'username': '#username#',
+                'password': '#pwd#',
+                'connectionLimit': 100 // default:-1
+            },
+            'h2': {
+                'class': 'org.h2.Driver',
+                'bundleName': 'org.h2',
+                'bundleVersion': '1.3.172',
+                'connectionString': 'jdbc:h2:#folder#\#dbname#;MODE=MSSQL',
+                'connectionLimit': 100 // default:-1
+            }
+        };
+    }
+
+/*
+* Checks to see if the datasource already exists
+* @dsourceName The name of the datasource to check
+*/
+
+    boolean function sourceExists(required string dsourceName) {
+        var dsources = appSettings();
+        if (not structKeyExists(dsources, 'datasources')) {
+            return false;
+        }
+        if (not structKeyExists(dsources.datasources, dsourceName)) {
+            return false;
+        }
+        return true;
+    }
+
+    struct function appSettings(){
+        return getApplicationSettings();
+    }
+
+/*
+*   Seperated out commandline printing for testing purposes
+* @text What text to display
+* @styleName The formatting for the output in the format of redLine
+*/
+    void function printme(any text = '', string styleName = 'line') {
+            print[styleName](text).toConsole();
+    }
+}
+
+]]></script>
+		</div>
+	</body>
+</html>
