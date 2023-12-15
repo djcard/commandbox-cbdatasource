@@ -33,13 +33,13 @@ component accessors="true" {
         boolean force = false,
         boolean saveToEnvFile = false
     ) {
-        port = !isNumeric(port) or port neq 0 ? port : dbports.keyExists(dbtype) ? dbports[dbtype] : 0;
+        arguments.port = !isNumeric(arguments.port) or arguments.port neq 0 ? arguments.port : dbports.keyExists(dbtype) ? dbports[dbtype] : 0;
 
         if (common.sourceExists(dsourceName = dataSource) and !force) {
             common.printme('That datasource Already exists. Use force=true to overwrite.', 'redLine');
         } else {
             makekey(arguments);
-            common.printme('DataSource Made to printme');
+            common.printme('DataSource Made');
         }
 
         if (saveToEnvFile) {
@@ -126,7 +126,6 @@ component accessors="true" {
                 return item == dbtype;
             });
 
-        common.printme(dsource);
         return dsource;
     }
 

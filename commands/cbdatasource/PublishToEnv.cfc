@@ -36,7 +36,7 @@ component accessors="true" {
             common.printme('The datasource returned from the system is incomplete');
             return;
         }
-
+        print.line(currentDatasource);
         type = type.len() eq 0
          ? determineType(currentDatasource.class)
          : type;
@@ -48,13 +48,10 @@ component accessors="true" {
 
         var dbname = parseConnectionString(currentDatasource.connectionString, type);
         common.printme('This is a #type# Database');
-        command('envfile set DB_DATABASE #dbname#').run();
+        command('envfile set DB_DATABASE "#dbname#"').run();
+
         command(
-                'envfile set DB_PASSWORD #currentDatasource.keyexists('password') ? currentDatasource.password : ''#'
-            )
-            .run();
-        command(
-                'envfile set DB_USER #currentDatasource.keyExists('username') ? currentDatasource.username : ''#'
+                'envfile set DB_USER "#currentDatasource.keyExists('username') ? currentDatasource.username : ''#"'
             )
             .run();
         command('envfile set')
@@ -67,6 +64,10 @@ component accessors="true" {
         if(type == 'MYSQL'){
                 command('envfile set DB_SCHEMA #dbname#').run();
         }
+        command(
+            'envfile set DB_PASSWORD "#currentDatasource.keyexists('password') ? currentDatasource.password : ''#"'
+        )
+        .run();
     }
 
 
